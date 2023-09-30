@@ -2,6 +2,7 @@ import express, { NextFunction, json, Request, Response } from 'express';
 import cors from 'cors';
 import globalRouter from './routes/global.route';
 import devToolsRouter from './routes/devtools.route';
+import projectsRouter from './routes/projects.route';
 
 const app = express();
 app.use(json({ limit: "10kb" }));
@@ -15,6 +16,7 @@ app.use(
 
 app.use('/global', globalRouter);
 app.use('/devtools', devToolsRouter);
+app.use('/projects', projectsRouter);
 app.get('*', (req, res) => {
     return res.status(404).json({ status: "failed", reason: "not found" })
 });

@@ -16,7 +16,6 @@ export async function getDevTools(req: Request, res: Response) {
             return res.status(200).json({ status: "fail", message: err })
         }
     })
-    // return res.status(200).json({ status: "success", message: "Dev !" })
 }
 
 export async function getOneTool(req:Request,res:Response){
@@ -25,8 +24,8 @@ export async function getOneTool(req:Request,res:Response){
     .catch(reason => res.status(200).json({status:"fail",reason:reason}))
 }
 
-export async function deleteAll(req:Request,res:Response){
-    promisifyUpdate(db,'delete from dev_tools')
-    .then(() => res.status(200).json({status:"success",data:"Successfully deleted from dev_tools"}))
-    .catch(reason => res.status(200).json({status:"fail",reason:reason}))
-}
+// export async function deleteAll(req:Request,res:Response){
+//     promisifyUpdate(db,'delete from dev_tools')
+//     .then(() => res.status(200).json({status:"success",data:"Successfully deleted from dev_tools"}))
+//     .catch(reason => res.status(200).json({status:"fail",reason:reason}))
+// }
