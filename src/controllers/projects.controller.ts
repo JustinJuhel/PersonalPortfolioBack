@@ -21,8 +21,23 @@ interface Project {
 //     })
 // }
 
-export async function getProject(req: Request, res: Response) {
-    promisify<Project>(db, "select * from projects")
+// export async function getProject(req: Request, res: Response) {
+//     console.log('en')
+//     promisify<Project>(db, "select * from projects_en")
+//         .then(data => res.status(200).json({ status: "success", data: data }))
+//         .catch(reason => res.status(200).json({ status: "fail", reason: reason }))
+// }
+
+export async function getProjectEn(req: Request, res: Response) {
+    // console.log('en')
+    promisify<Project>(db, "select * from projects_en")
+        .then(data => res.status(200).json({ status: "success", data: data }))
+        .catch(reason => res.status(200).json({ status: "fail", reason: reason }))
+}
+
+export async function getProjectFr(req: Request, res: Response) {
+    // console.log('fr')
+    promisify<Project>(db, "select * from projects_fr")
         .then(data => res.status(200).json({ status: "success", data: data }))
         .catch(reason => res.status(200).json({ status: "fail", reason: reason }))
 }
