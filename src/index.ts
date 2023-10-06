@@ -1,8 +1,8 @@
 import express, { NextFunction, json, Request, Response } from 'express';
 import cors from 'cors';
-import frenchRouter from './routes/french.route';
-import englishRouter from './routes/english.route';
 import devToolsRouter from './routes/devtools.route';
+import aboutRouter from './routes/about.route';
+import projectsRouter from './routes/projects.route';
 
 const app = express();
 app.use(json({ limit: "10kb" }));
@@ -14,8 +14,10 @@ app.use(
     })
 )
 
-app.use('/fr',frenchRouter)
-app.use('/en',englishRouter)
+app.use('/projects', projectsRouter);
+app.use('/about', aboutRouter);
+// app.use('/fr',frenchRouter);
+// app.use('/en',englishRouter);
 app.use('/devtools', devToolsRouter);
 app.get('*', (req, res) => {
     return res.status(404).json({ status: "failed", reason: "not found" })
