@@ -10,7 +10,7 @@ app.use(json({ limit: "10kb" }));
 app.use(
     cors({
         credentials: true,
-        origin: ["http://localhost:3000"],
+        origin: ["http://localhost:3000","http://justinportfoliofront.s3-website.eu-west-3.amazonaws.com"],
     })
 )
 
