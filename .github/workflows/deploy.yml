@@ -9,10 +9,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup ssh
+      run: |
+        mkdir -p ~/.ssh
+        touch ~/.ssh/config
+        echo -e "${{secrets.PRIVATE_KEY}}" > ~/.ssh/id_ed25519
+        chmod 400 ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/config
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
     - name: Checkout code
       uses: actions/checkout@v3
     - name: Set up Node Environment
       uses: actions/setup-node@v3
       with:
         node-version: 19
-    
+    - name: Build
+      run: |
+        npm install -g yarn
+        yarn install
+        yarn build
+        cp db.db ./dist/db.db
+        cp package.json ./dist/package.json
+        echo "Deploying to ${{secrets.PREPROD_SERVER}}"
+        ssh ubuntu@${{secrets.PREPROD_SERVER}} "pm2 kill && sudo rm -r /var/www/backend/*"
+        scp -r ./dist/* ubuntu@${{secrets.PREPROD_SERVER}}:/var/www/backend
+        ssh ubuntu@${{secrets.PREPROD_SERVER}} "cd /var/www/backend && yarn install && pm2 start index.js"
