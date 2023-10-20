@@ -14,9 +14,11 @@
     "mysql2": "^3.6.1",
     "sqlite3": "^5.1.6",
     "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
     "typescript": "^5.2.2"
   },
   "scripts": {
+    "build": "tsc -p .",
     "start": "ts-node src/index.ts"
   }
 }
